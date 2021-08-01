@@ -13,6 +13,24 @@ println(23)
 i1 = UInt8(trunc(3.256))
 println(i1)
 
+# Multiple dispatch
+# The different variants of the same function, f, are called "methods".
+function f(x::Int32, y::Int32)
+    x * y
+end
+
+function f(x::Int32, y::Float64)
+    x + y
+end
+
+function f(x::Int)
+    return x^2
+end
+
+println(f(1))
+println(f(2, 7))
+println(f(2, 7.0))
+
 
 # Function with types
 function juliaFunction(arg1::Int32, arg2::Int32)
@@ -21,8 +39,8 @@ end
 juliaFunction(15, 12)
 
 # Concat strings
-println("yash", "good")
-println("yash" * "good")
+println("string1", "string2")
+println("string1" * "string2")
 
 s = """
 Multi-line strings
@@ -69,8 +87,8 @@ delete!(d, "pi")
 println(d)
 
 # Set
-st = Set(["Yash", "yash", "Yash", "Flower"])
-st2 = Set(["Yash", "yash", "Yash", "Flowers"])
+st = Set(["Flower", "car", "radio", "Flower"])
+st2 = Set(["Ground", "Radio", "Car", "Flowers"])
 println(st)
 println(union(st, st2))
 println(intersect(st, st2))
@@ -151,7 +169,16 @@ struct Dog <: Animal
     bark::String
 end
 
+# Symbols - immutable strings
+:yash
+println(:yash)
+
+d = Dict(:one => 1, :two => 2, :three => 3)  # Avoids writing "one", "two", etc
+println(d[:two])
+
+
 # Mutable struct
+# Immutable types may give faster speed since memory access cost is low.
 mutable struct Cat <: Animal
     name::String
     meow::String
