@@ -9,6 +9,11 @@ using Statistics
 
 println(23)
 
+# For loops include both start and end point
+for i in 1:10
+    println(i)
+end
+
 # Float to Int
 i1 = UInt8(trunc(3.256))
 println(i1)
@@ -143,7 +148,7 @@ println(split(s))
 
 # Multiply a value to array
 l = [3,4,5,6]
-## both are same
+## both are same - Multiply every value inside by 4.
 println(l * 4)
 println(l .* 4)
 
@@ -170,8 +175,14 @@ struct Dog <: Animal
 end
 
 # Symbols - immutable strings
-:yash
-println(:yash)
+# Symbols are a part of the Abstract Syntax Tree (AST) and are not strings.
+:animal
+println(:animal)
+
+# Symbol comparisons are O(1) whereas string comparisons are O(n)
+println(:goat == :goat) # true
+println(:goat == "goat") # false
+println("goat" == "goat") # true
 
 d = Dict(:one => 1, :two => 2, :three => 3)  # Avoids writing "one", "two", etc
 println(d[:two])
