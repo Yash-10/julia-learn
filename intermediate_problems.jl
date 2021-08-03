@@ -21,6 +21,7 @@ println(_MyRange(arr, 10)) # 19
 # Part (ii)
 
 # Using the Julia array interface
+# See https://docs.julialang.org/en/v1/manual/interfaces/#Indexing
 function Base.getindex(a::MyRange, i::Int)
     for vals in enumerate(a.start:a.step:a.stop)
         if vals[1] == i
