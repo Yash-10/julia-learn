@@ -7,6 +7,9 @@ n = parse(Int32, chomp(readline()))
 
 # ns = repeat([-2], n) # Repeat -2 "n" times
 
+# Define a variable
+variable = 10
+
 a = Array{Int32}(undef, n, n)
 for i in 1:n, j in 1:n
     if i == j
