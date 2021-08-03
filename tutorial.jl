@@ -6,8 +6,30 @@ Pkg.activate(".") # Activate the environment here.
 using Printf
 using Statistics
 
+# Aliases
+import Plots
+const pl = Plots
+# Can use pl instead of `Plots`
+pl.pyplot()
+pl.plot(randn(4))
+
+# Using `include()`
+# Avoid multiple use of "include" since it may cause duplication of variables.
+include("starter_problems.jl")
+println(variable)  # `variable` comes from starter_problems.jl
 
 println(23)
+
+
+# "==" to check equality.
+# "===" to check if actually the same.
+
+# Row and column vectors
+a = [1 2 3 4 5] # Row
+b = [1; 2; 3; 4; 5] # Column
+b_ = vec(a) # Convert Row to Column vector
+println(b)
+println(b_)
 
 # For loops include both start and end point
 for i in 1:10
