@@ -107,17 +107,17 @@ println("Interpolated value at 2.0 is $(usr(2.0))")
 
 
 # Part 4
-arr = [103.456, 100, 1000.103, 3402.568, 9027.34921, 9012834.23] * Unitful.N
-# Using above LinSpace on "unitful" arrays gives an error. So we can overload `Base.getindex` to allow unitful arrays.
-"""
-This function doesn't work yet
-"""
-function Base.getindex(a::MyRange, i...) where {T<:Unitful.N}
-    answer = []
-    for index in i
-        push!(answer, a[index])
-    end
-    return answer
-end
+arr = [100u"N", 200u"N", 300u"N"]
+println(arr[3])
 
-println(arr[1, 3])
+## Extra: Allow unitful arrays to handle multiple indices? ###
+# Using above LinSpace on "unitful" arrays gives an error. So we can overload `Base.getindex` to allow unitful arrays.
+# function Base.getindex(a::AbstractArray{T}, i...) where {T<:Unitful.N}
+#     answer = []
+#     for index in i
+#         push!(answer, a[index])
+#     end
+#     return answer
+# end
+
+# println(arr[1, 3])
