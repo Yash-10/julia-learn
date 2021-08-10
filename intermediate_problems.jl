@@ -1,3 +1,5 @@
+using IterativeSolvers
+using LinearAlgebra
 using Unitful
 
 # MyRange Part 1:
@@ -121,3 +123,60 @@ println(arr[3])
 # end
 
 # println(arr[1, 3])
+
+
+# Operator Problem
+# A::Array{Int}, x::Vector
+function strangMatrix(n::Int)
+    a = Array{Int32}(undef, n, n)
+    for i in 1:n, j in 1:n
+        if i == j
+            a[i, j] = -2
+        elseif i == j + 1 || j == i + 1
+            a[i, j] = 1
+        else
+            a[i, j] = 0
+        end
+    end
+    return a
+end
+
+struct StrangMatrix
+    n::Int
+    StrangMatrix(n) = strangMatrix(n)  # Inner constructor 
+end
+
+smatrix = StrangMatrix(4)
+println(smatrix)
+
+function multiplication(a::Array, x::Array)
+    y = similar(x)
+    mul!(y, a, x)
+end
+
+vector = [1, 2, 3, 8]
+println(multiplication(smatrix, vector))
+
+
+# Advanced Bonus - IterativeSolvers
+# Define `eltype` since all elements inside a strang matrix are integers (either 1 or -2).
+Base.eltype(::Type{StrangMatrix}) = Int
+
+n = 20
+p = 20
+A = StrangMatrix(n)
+x = zeros(n, p)
+b = randn(n, p)
+
+sol = IterativeSolvers.cg!(x, A, b)
+println("Solution:", sol)
+
+
+# Regression problem
+N = 50
+data = randn(N, 3)
+outcomes = [i for i in 1:N]
+println(data)
+println(length(data))
+
+println(hcat(data, outcomes))
