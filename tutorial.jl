@@ -1,4 +1,6 @@
-# Trick to prevent manually activating an environment using: `activate <env_name>`
+##### Much of the content has been taken from the following Julia tutorial: https://www.youtube.com/watch?v=sE67bP2PnOo&t=2861s #####
+
+# Trick to prevent manually activating an environment using: `activate <env_name>
 cd(@__DIR__)
 using Pkg
 Pkg.activate(".") # Activate the environment here.
