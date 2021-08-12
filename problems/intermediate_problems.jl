@@ -1,6 +1,9 @@
+using GLM
 using IterativeSolvers
 using LinearAlgebra
+using MultivariateStats
 using Unitful
+
 
 # MyRange Part 1:
 
@@ -171,12 +174,55 @@ b = randn(n, p)
 sol = IterativeSolvers.cg!(x, A, b)
 println("Solution:", sol)
 
+# Must be close to zero.
+println("\nDifference: \n", A * x - b)
 
+println("========== Regression Problem ==========")
 # Regression problem
-N = 50
-data = randn(N, 3)
-outcomes = [i for i in 1:N]
-println(data)
-println(length(data))
+#### Prepare Data For Regression Problem
 
-println(hcat(data, outcomes))
+"""
+OLS estimator: For the equation: y = Ax, the coefficient vector 'A_prime' is given by:
+
+(xT * x)^-1 * xT * y
+
+which is a close estimate of 'A'. Hence, 'A_prime' is the OLS estimator of 'A'.
+
+"""
+# Data given in Q.
+X = rand(1000, 3)               # feature matrix
+a0 = rand(3)                    # ground truths
+println(a0)
+y = X * a0 + 0.1 * randn(1000);  # generate response
+
+function olsEstimator(X::Array, y::Array, N::Int)
+    Xnew = hcat(X, ones(N))
+    Xnew\y  # Solution
+end
+
+beta1 = olsEstimator(X, y, 1000)
+
+println("Actual 'a': ", a0)
+println("Solution 1: ", beta1)
+
+println("Using MultivariateStats")
+
+beta2 = MultivariateStats.llsq(X, y; bias=true)
+println("Solution 2: ", beta2)
+
+println(isapprox(beta1, beta2))
+
+# Using GLM
+# See https://juliastats.org/GLM.jl/dev/api/#GLM.lm
+beta3 = GLM.lm(X, y)
+println(beta3)  # The coefficients are the same as beta1 and beta2!
+
+# Regression Problem Part 2
+# Data For Regression Problem Part 2
+X = rand(100);
+y = 2X  + 0.1 * randn(100);
+
+beta = olsEstimator(X, y, 100)
+println("Regression problem 2 solution: ", beta)
+
+# Plotting (in notebook)
