@@ -1,3 +1,5 @@
+using Printf
+
 using GLM
 using IterativeSolvers
 using LinearAlgebra
@@ -226,3 +228,41 @@ beta = olsEstimator(X, y, 100)
 println("Regression problem 2 solution: ", beta)
 
 # Plotting (in notebook)
+
+# Type heirarchy problem
+# Takeaway: Cannot define subclasses of concreate types but only of abstract types.
+
+abstract type AbstractPerson end
+abstract type AbstractStudent end
+
+struct Person <: AbstractPerson
+    name::String
+end
+struct Student <: AbstractStudent
+    name::String
+    grade::Float64
+end
+struct GraduateStudent <: AbstractStudent
+    name::String
+    grade::Float64
+    gradSchool::String
+end
+
+function person_info(x::Person)
+    println("The person has the name: ", x.name)
+end
+
+function person_info(x::AbstractStudent)
+    @printf("The student has the name: %s and has the grade: %f\n", x.name, x.grade)
+end
+
+person = Person("Brick")
+person_info(person)
+
+student = Student("Wall", 64.90)
+person_info(student)
+
+gradStudent = GraduateStudent("GradWall", 99.90, "Howard")
+person_info(gradStudent)
+
+# person_info(1.0)  # Using any other type will throw an error.
