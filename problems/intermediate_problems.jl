@@ -271,15 +271,23 @@ person_info(gradStudent)
 
 
 # Distribution Quantile Problem
-distribution = Binomial(1000, 0.6)
+distribution = Normal(0, 1)  # Can take gamma, beta, etc distributions.
 
+"""
+qth quantile in a given distribution using newtons iteration.
+Start with the mean of the distribution.
+"""
 function calculate_qth_quantile(distribution::UnivariateDistribution, q::Number)
-    theta0 = Statistics.mean(distribution)
-    # Calculate cdf and pdf at the point `theta0`.
-    theta_next = theta0 - (cdf(distribution, theta0) - q) / pdf(distribution, theta0)
-    return theta_next
+    tol = Inf
+    theta = mean(distribution)
+    while tol > 1e-5
+        thetaold = theta
+        theta = theta - (cdf(distribution, theta) - q) / pdf(distribution, theta)
+        tol = abs(thetaold-theta)
+    end
+    theta
 end
 
 # Calculate median (50%) quantile.
-println(calculate_qth_quantile(distribution, 0.5))
-println(quantile.(distribution, 0.5))
+println(calculate_qth_quantile(distribution, 0.75))
+println(quantile.(distribution, 0.75))
