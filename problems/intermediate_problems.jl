@@ -1,9 +1,11 @@
 using Printf
 
+using Distributions
 using GLM
 using IterativeSolvers
 using LinearAlgebra
 using MultivariateStats
+using Statistics
 using Unitful
 
 
@@ -230,7 +232,7 @@ println("Regression problem 2 solution: ", beta)
 # Plotting (in notebook)
 
 # Type heirarchy problem
-# Takeaway: Cannot define subclasses of concreate types but only of abstract types.
+# Takeaway: Cannot define subclasses of concrete types but only of abstract types.
 
 abstract type AbstractPerson end
 abstract type AbstractStudent end
@@ -266,3 +268,18 @@ gradStudent = GraduateStudent("GradWall", 99.90, "Howard")
 person_info(gradStudent)
 
 # person_info(1.0)  # Using any other type will throw an error.
+
+
+# Distribution Quantile Problem
+distribution = Binomial(1000, 0.6)
+
+function calculate_qth_quantile(distribution::UnivariateDistribution, q::Number)
+    theta0 = Statistics.mean(distribution)
+    # Calculate cdf and pdf at the point `theta0`.
+    theta_next = theta0 - (cdf(distribution, theta0) - q) / pdf(distribution, theta0)
+    return theta_next
+end
+
+# Calculate median (50%) quantile.
+println(calculate_qth_quantile(distribution, 0.5))
+println(quantile.(distribution, 0.5))
