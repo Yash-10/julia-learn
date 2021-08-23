@@ -1,4 +1,7 @@
 # Expressions
+# Contain two parts:
+# 1. Symbol (type of expression) - also called as "interned string".
+# 2. Expression arguments.
 x = 1 + 2
 println(x)  # Gets evaluated.
 
