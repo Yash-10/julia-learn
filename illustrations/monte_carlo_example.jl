@@ -30,3 +30,28 @@ for n in [30, 100, 10000, 1000000]
     println("Approximation: ", approxValue)
     print("\n")
 end
+    
+"""
+Output:
+
+n = 30
+================
+Expected: 0.7853981633974483
+Approximation: 0.7731090119129932
+
+n = 100
+================
+Expected: 0.7853981633974483
+Approximation: 0.7752292267973813
+
+n = 10000
+================
+Expected: 0.7853981633974483
+Approximation: 0.7770962471064391
+
+n = 1000000
+================
+Expected: 0.7853981633974483
+Approximation: 0.8121993763859061
+
+"""
