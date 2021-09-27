@@ -1,5 +1,5 @@
 # Suppose we want to calculate the integral: \theta = \(\int_{0}^{1} sqrt(1 - y^2) \,dy\).
-# For demonstration and proof of concept, we could convert this integral = E[1 - U^2], where U is a uniformly distributed random variable.
+# For demonstration and proof of concept, we could convert this integral = E[sqrt(1 - U^2)], where U is a uniformly distributed random variable.
 # Uniform random variables can be easily simulated by a computer.
 
 using Distributions;
